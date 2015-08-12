@@ -1,4 +1,6 @@
 ﻿using System;
+using lostsocks.Database;
+using lostsocks.Entities;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
