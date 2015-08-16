@@ -1,6 +1,15 @@
-﻿.thumbnail {
-    background-color: #171619;
+﻿body {
+    padding-top: 50px;
 }
-.thumbnail p {
-    color: #00bfff;
+
+.thumbnail {
+    background-color: #FAFAFA;
+}
+
+    .thumbnail p {
+        color: #00bfff;
+    }
+
+.latestsocks .thumbnail {
+    margin-bottom: 0;
 }

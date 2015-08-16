@@ -2,62 +2,71 @@
     ViewBag.Title = "Home Page";
 }
 
-<div class="hero-unit">
+<div class="jumbotron">
     <h1>Hello, Sock Lovers!</h1>
     <p>Do you have a lost sock?  Finally a place to share your sock, or get a match.</p>
     <p>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink", @class = "btn btn-primary btn-large" })</p>
 </div>
 
-<div class="row">
-    <h2>Latest Socks</h2>
-    <ul class="thumbnails">
-        <li class="span3">
-            <div class="thumbnail">
-                <a href="#" class="thumbnail">
-                    <img src="~/Content/Images/Blue_sock.jpg" alt="Blue boy" style="width: 260px; height: 180px;">
-                </a>
-                <div class="caption">
-                    <h3>Blue boy</h3>
-                    <p>I'm great for a day at the office.</p>
-                    <p><a href="#" class="btn btn-primary">Join me</a></p>
-                </div>
+
+<h2>Latest Socks</h2>
+<div class="row latestsocks">
+    <div class="col-xs-6 col-md-3">
+        <div class="thumbnail">
+            <a href="#" class="thumbnail">
+                <img src="~/Content/Images/Blue_sock.jpg" alt="Blue boy" style="width: 260px; height: 180px;">
+            </a>
+            <div class="caption">
+                <h3>Blue boy</h3>
+                <p>I'm great for a day at the office.</p>
+                <p>
+                    <a href="#" class="btn btn-primary">Join me</a>
+                </p>
             </div>
-        </li>
-        <li class="span3">
-            <div class="thumbnail">
-                <a href="#" class="thumbnail">
-                    <img src="~/Content/Images/Checkmate.jpg" alt="Checkmate" style="width: 260px; height: 180px;">
-                </a>
-                <div class="caption">
-                    <h3>Checkmate</h3>
-                    <p>Dancing is my thing.</p>
-                    <p><a href="#" class="btn btn-primary">Join me</a></p>
-                </div>
+        </div>
+    </div>
+    <div class="col-xs-6 col-md-3">
+        <div class="thumbnail">
+            <a href="#" class="thumbnail">
+                <img src="~/Content/Images/Checkmate.jpg" alt="Checkmate" style="width: 260px; height: 180px;">
+            </a>
+            <div class="caption">
+                <h3>Checkmate</h3>
+                <p>Dancing is my thing.</p>
+                <p>
+                    <a href="#" class="btn btn-primary">Join me</a>
+                </p>
             </div>
-        </li>
-        <li class="span3">
-            <div class="thumbnail">
-                <a href="#" class="thumbnail">
-                    <img src="~/Content/Images/CYAN_SOCK.jpg" alt="Cyan I am" style="width: 260px; height: 180px;">
-                </a>
-                <div class="caption">
-                    <h3>Cyan I am</h3>
-                    <p>I'll never get lost in the dark.</p>
-                    <p><a href="#" class="btn btn-primary">Join me</a></p>
-                </div>
+        </div>
+    </div>
+    <div class="col-xs-6 col-md-3">
+
+        <div class="thumbnail">
+            <a href="#" class="thumbnail">
+                <img src="~/Content/Images/CYAN_SOCK.jpg" alt="Cyan I am" style="width: 260px; height: 180px;">
+            </a>
+            <div class="caption">
+                <h3>Cyan I am</h3>
+                <p>I'll never get lost in the dark.</p>
+                <p>
+                    <a href="#" class="btn btn-primary">Join me</a>
+                </p>
             </div>
-        </li>
-        <li class="span3">
-            <div class="thumbnail">
-                <a href="#" class="thumbnail">
-                    <img src="~/Content/Images/Herring.jpg" alt="Herring" style="width: 260px; height: 180px;">
-                </a>
-                <div class="caption">
-                    <h3>Herring</h3>
-                    <p>Smoked or not, I'm up for it.</p>
-                    <p><a href="#" class="btn btn-primary">Join me</a></p>
-                </div>
+        </div>
+    </div>
+    <div class="col-xs-6 col-md-3">
+
+        <div class="thumbnail">
+            <a href="#" class="thumbnail">
+                <img src="~/Content/Images/Herring.jpg" alt="Herring" style="width: 260px; height: 180px;">
+            </a>
+            <div class="caption">
+                <h3>Herring</h3>
+                <p>Smoked or not, I'm up for it.</p>
+                <p>
+                    <a href="#" class="btn btn-primary">Join me</a>
+                </p>
             </div>
-        </li>
-    </ul>
+        </div>
+    </div>
 </div>
