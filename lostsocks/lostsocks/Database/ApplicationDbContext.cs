@@ -1,13 +1,12 @@
 ﻿using System.Data.Entity;
 using lostsocks.Entities;
-using lostsocks.Models;
 using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace lostsocks.Database
 {
     // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit http://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
-
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+    // http://www.entityframeworktutorial.net/EntityFramework4.3/dbcontext-vs-objectcontext.aspx
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplicationDbContext
     {
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
@@ -21,5 +20,14 @@ namespace lostsocks.Database
         {
             return new ApplicationDbContext();
         }
+
+        public DbSet<Sock> Socks { get; set; }
+    }
+
+    public interface IApplicationDbContext
+    {
+        DbSet<Sock> Socks { get; }
+
+        int SaveChanges();
     }
 }
