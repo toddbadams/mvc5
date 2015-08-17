@@ -1,0 +1,125 @@
+FORMAT: 1A
+HOST: velocitymobiletest.azurewebsites.net/api
+
+# PaymentMethods
+
+API for customer payment methods.
+
+# Collection [/paymentmethods]
+
+A Collection of customer payment methods.
+
+## List all Customer Payment Methods [GET]
++ Request (application/json)
+
+    + Headers
+
+            Key: device id
+            Token: auth token
+            
++ Response 200 (application/json)
+
+        [
+        {
+          "PaymentMethodId": {paymentMethodId},
+          "Name": "My fun card",
+          "PaymentMethodType": 4,
+          "PaymentGatewayType": 2,
+          "PaymentClass": 2,
+          "LastFour": "0000",
+          "Expiration": "2015-08-07T18:30:27+00:00",
+          "IsDefault": true,
+          "ExpenseProvider": null,
+          "CountryCode": "GBR"
+        },
+        {
+          "PaymentMethodId": 15687,
+          "Name": "My no so fun card",
+          "PaymentMethodType": 2,
+          "PaymentGatewayType": 2,
+          "PaymentClass": 1,
+          "LastFour": "0000",
+          "Expiration": "2015-08-07T18:30:27+00:00",
+          "IsDefault": false,
+          "ExpenseProvider": null,
+          "CountryCode": "GBR"
+        }
+        ]
+
+## Create a New Payment Method [POST]
+
+Card holder data is captured within the mobile application and registered 
+with the user's payment gateway. After the card is registered with the gateway 
+it requires pre authorization for a zero amount. This step completes a round 
+trip to the card's bank to verify that it is valid.
+
+The process of registering a payment method is known as tokenization and 
+provides two tokens, the customer token (which is a variant of the velocity 
+customer ID) and the card token (a unique token provided by the gateway). 
+These tokens along with the payment method, last four, and expiration date 
+are sent along to the Velocity API, for storage in the Velocity database.
+
++ Request (application/json)
+
+    + Headers
+
+            Key: device id
+            Token: auth token
+
+    + Body
+    
+            {
+                "CardToken": "some string1",
+                "ConsumerToken": "some string 2",
+                "PaymentMethodType": 4,
+                "PaymentGatewayType": 2,
+                "PaymentClass": 1,
+                "Name": "My fun card",
+                "LastFour": "0000",
+                "Expiration": "2015-08-07T18:30:27+00:00",
+                "ExpenseProvider": null,
+                "CountryCode": "GBR"
+              }
+
++ Response 201 (application/json)
+
+## Update an existing customer payment method [PUT]
+
+Updates an existing payment method. Setting a payment method as the 
+default payment method clears any previous default payment method.
+
+
++ Request (application/json)
+
+    + Headers
+
+            Key: {{deviceId}}
+            Token: {{authToken}}
+
+    + Body
+    
+            {
+                "CardToken": "3a9f6b07-1a71-40ed-86f2-e25d64bc95cd",
+                "ConsumerToken": "9f779557-ce5f-4f9c-aeb3-e7fd669d0731",
+                "PaymentMethodType": 4,
+                "PaymentGatewayType": 2,
+                "PaymentClass": 1,
+                "Name": "My fun card",
+                "LastFour": "0000",
+                "Expiration": "2015-08-07T18:30:27+00:00",
+                "ExpenseProvider": null,
+                "CountryCode": "GBR"
+              }
+
++ Response 201 (application/json)
+
+## Delete an existing customer payment method [DELETE]
+
+Deletes an existing payment method.
+
++ Request (application/json)
+
+    + Headers
+
+            Key: {{deviceId}}
+            Token: {{authToken}}
