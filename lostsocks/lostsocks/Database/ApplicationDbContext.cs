@@ -29,5 +29,6 @@ namespace lostsocks.Database
         DbSet<Sock> Socks { get; }
 
         int SaveChanges();
+
     }
 }

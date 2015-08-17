@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Data.Entity.Core.Common.CommandTrees;
+using System.IO;
 using System.Web;
 using System.Web.Mvc;
 using lostsocks.Database;
@@ -29,20 +30,20 @@ namespace lostsocks.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Add(AddSockModel model, HttpPostedFileBase upload)
+        public ActionResult Add(AddSockModel model)
         {
-            if (!ModelState.IsValid || upload == null)
+            if (!ModelState.IsValid) //|| upload == null)
             {
                 return View(model);
             }
 
-            // convert the upload to a byte array type
-            MemoryStream target = new MemoryStream();
-            upload.InputStream.CopyTo(target);
-            byte[] data = target.ToArray();
+            //// convert the upload to a byte array type
+            //MemoryStream target = new MemoryStream();
+            //upload.InputStream.CopyTo(target);
+            //byte[] data = target.ToArray();
 
             // save to repository
-            _repository.Add(model, data);
+            _repository.Add(model, null);
 
             return RedirectToAction("Index");
         }
