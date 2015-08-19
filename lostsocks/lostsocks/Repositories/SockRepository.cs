@@ -36,6 +36,20 @@ namespace lostsocks.Repositories
             _context.SaveChanges();
         }
 
+        public void Delete(string userId, long sockId)
+        {
+            // get the user
+            var u = _users.Single(x => x.Id == userId);
+
+            var exists = u.Socks.Any(x => x.Id == sockId);
+
+            if (!exists) return;
+
+            var sock = u.Socks.First(x => x.Id == sockId);
+            u.Socks.Remove(sock);
+            _context.SaveChanges();
+        }
+
         public SockModel[] Fetch(string userId)
         {
             var u = _users.Single(x => x.Id == userId);
@@ -45,6 +59,7 @@ namespace lostsocks.Repositories
             {
                 socks.Add(new SockModel
                 {
+                    Id = item.Id,
                     Name = item.Name,
                     Description = item.Description,
                     Image = item.Image
@@ -53,11 +68,33 @@ namespace lostsocks.Repositories
 
             return socks.ToArray();
         }
+
+        public SockModel Get(string userId, long sockId)
+        {
+            var u = _users.Single(x => x.Id == userId);
+            var exists = u.Socks.Any(x => x.Id == sockId);
+
+            if (!exists) return null;
+
+            var sock = u.Socks.First(x => x.Id == sockId);
+
+            return new SockModel
+            {
+                Id = sock.Id,
+                Name = sock.Name,
+                Description = sock.Description,
+                Image = sock.Image
+            };
+        }
     }
 
     public interface ISockRepository
     {
         void Add(string userId, AddSockModel model, byte[] image);
         SockModel[] Fetch(string userId);
+
+        SockModel Get(string userId, long sockId);
+
+        void Delete(string userId, long sockId);
     }
 }

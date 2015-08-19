@@ -1,0 +1,23 @@
+﻿@model lostsocks.Models.Socks.SockModel
+
+@{
+    ViewBag.Title = "Delete the sock";
+
+    string imageBase64 = Convert.ToBase64String(Model.Image);
+    string imageSrc = string.Format("data:image/gif;base64,{0}", imageBase64);
+}
+
+<h2>@ViewBag.Title</h2>
+<p class="pull-right">@Html.ActionLink("Confirm", "DeleteConfirm", "Socks", routeValues: new { id = Model.Id }, htmlAttributes: new { id = "deletesock", @class = "btn btn-primary" })</p>
+
+<div class="col-xs-6 col-md-3">
+    <div class="thumbnail">
+        <a href="#" class="thumbnail">
+            <img src="@imageSrc" alt="@Model.Name" style="width: 260px; height: 180px;">
+        </a>
+        <div class="caption">
+            <h3>@Model.Name</h3>
+            <p>@Model.Description</p>
+        </div>
+    </div>
+</div>

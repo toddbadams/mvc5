@@ -53,5 +53,21 @@ namespace lostsocks.Controllers
 
             return RedirectToAction("Index");
         }
+
+        public ActionResult Delete(long id)
+        {
+            SockModel vm = _repository.Get(User.Identity.GetUserId(), id);
+            if (vm == null) RedirectToAction("Index");
+
+            return View(vm);
+        }
+
+
+        public ActionResult DeleteConfirm(long id)
+        {
+            _repository.Delete(User.Identity.GetUserId(), id);
+
+            return RedirectToAction("Index");
+        }
     }
 }

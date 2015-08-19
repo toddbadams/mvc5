@@ -262,6 +262,7 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <None Include="Views\Socks\Add.cshtml" />
+    <None Include="Views\Socks\Delete.cshtml" />
     <None Include="Views\Socks\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
