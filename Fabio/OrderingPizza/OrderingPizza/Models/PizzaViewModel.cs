@@ -6,18 +6,18 @@ using System.Web;
 
 namespace OrderingPizza.Models
 {
-    public class AddingPizzaModel
-    {
-        [Required]
-        public long TypeId { get; set; }
+    //public class AddingPizzaModel
+    //{
+    //    [Required]
+    //    public long TypeId { get; set; }
 
-        public PizzaTopping[] Toppings { get; set; }
-    }
+    //    public PizzaTopping[] Toppings { get; set; }
+    //}
 
-    public class PizzaTopping
-    {
-        public string Name { get; set; }
-    }
+    //public class PizzaTopping
+    //{
+    //    public string Name { get; set; }
+    //}
 
 
     public class PizzaViewModel
