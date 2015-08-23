@@ -21,11 +21,14 @@ namespace lostsocks.Database
             return new ApplicationDbContext();
         }
 
+        public IDbSet<Sock> Socks { get; set; } 
     }
 
     public interface IApplicationDbContext
     {
         IDbSet<ApplicationUser> Users { get; }
+
+        IDbSet<Sock> Socks { get; } 
 
         int SaveChanges();
 

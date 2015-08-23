@@ -183,6 +183,7 @@
     <Compile Include="Models\ResetPasswordViewModel.cs" />
     <Compile Include="Models\SendCodeViewModel.cs" />
     <Compile Include="Models\SetPasswordViewModel.cs" />
+    <Compile Include="Models\Socks\EditSockModel.cs" />
     <Compile Include="Models\Socks\AddSockModel.cs" />
     <Compile Include="Models\Socks\SockModel.cs" />
     <Compile Include="Models\VerifyCodeViewModel.cs" />
@@ -263,6 +264,7 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <None Include="Views\Socks\Add.cshtml" />
     <None Include="Views\Socks\Delete.cshtml" />
+    <None Include="Views\Socks\Edit.cshtml" />
     <None Include="Views\Socks\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>

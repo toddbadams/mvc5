@@ -11,11 +11,13 @@ namespace lostsocks.Repositories
     public class SockRepository : ISockRepository
     {
         private readonly IDbSet<ApplicationUser> _users;
+        private readonly IDbSet<Sock> _socks;
         private readonly IApplicationDbContext _context;
 
         public SockRepository(IApplicationDbContext context)
         {
             _users = context.Users;
+            _socks = context.Socks;
             _context = context;
         }
 
@@ -62,7 +64,25 @@ namespace lostsocks.Repositories
                     Id = item.Id,
                     Name = item.Name,
                     Description = item.Description,
-                    Image = item.Image
+                    ImageSrc = string.Format("data:image/jpg;base64,{0}", Convert.ToBase64String(item.Image))
+                });
+            }
+
+            return socks.ToArray();
+        }
+
+        public SockModel[] FetchLatest(int quantity)
+        {
+            var entities = _socks.Take(quantity).ToList();
+            var socks = new List<SockModel>();
+            foreach (var item in entities)
+            {
+                socks.Add(new SockModel
+                {
+                    Id = item.Id,
+                    Name = item.Name,
+                    Description = item.Description,
+                    ImageSrc = string.Format("data:image/jpg;base64,{0}", Convert.ToBase64String(item.Image))
                 });
             }
 
@@ -83,18 +103,34 @@ namespace lostsocks.Repositories
                 Id = sock.Id,
                 Name = sock.Name,
                 Description = sock.Description,
-                Image = sock.Image
+                ImageSrc = string.Format("data:image/jpg;base64,{0}", Convert.ToBase64String(sock.Image))
             };
+        }
+
+        public void Update(string userId, long sockId, string name, string description)
+        {
+            var u = _users.Single(x => x.Id == userId);
+            var exists = u.Socks.Any(x => x.Id == sockId);
+            if (!exists) return;
+            var sock = u.Socks.First(x => x.Id == sockId);
+            sock.Description = description;
+            sock.Name = name;
+            _context.SaveChanges();
         }
     }
 
     public interface ISockRepository
     {
         void Add(string userId, AddSockModel model, byte[] image);
+
         SockModel[] Fetch(string userId);
 
         SockModel Get(string userId, long sockId);
 
         void Delete(string userId, long sockId);
+
+        void Update(string userId, long sockId, string name, string description);
+
+        SockModel[] FetchLatest(int quantity);
     }
 }

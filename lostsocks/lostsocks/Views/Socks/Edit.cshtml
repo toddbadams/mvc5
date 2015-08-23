@@ -1,0 +1,50 @@
+﻿@model lostsocks.Models.Socks.SockModel
+@{
+    ViewBag.Title = "Edit a Sock";
+}
+
+<h2>Ye old sock change up, hmm...</h2>
+
+@using (Html.BeginForm("Edit", "Socks", FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+    @Html.HiddenFor(m => m.Id)
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Name, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Description, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextAreaFor(m => m.Description, new { @class = "form-control col-md-10 " })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" class="btn btn-primary pull-right" value="Save" />
+        </div>
+    </div>
+}
+
+<div class="col-xs-offset-2 col-xs-6 col-md-offset-3 col-md-3">
+    <div class="thumbnail">
+        <a href="#" class="thumbnail">
+            <img src="@Model.ImageSrc" alt="@Model.Name" style="width: 260px; height: 180px;">
+        </a>
+        <div class="caption">
+            <h3>@Model.Name</h3>
+            <p>@Model.Description</p>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

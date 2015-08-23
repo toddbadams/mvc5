@@ -1,4 +1,6 @@
-﻿@{
+﻿@model lostsocks.Models.Socks.SockModel[]
+
+@{
     ViewBag.Title = "Home Page";
 }
 
@@ -10,63 +12,20 @@
 
 
 <h2>Latest Socks</h2>
-<div class="row latestsocks">
-    <div class="col-xs-6 col-md-3">
-        <div class="thumbnail">
-            <a href="#" class="thumbnail">
-                <img src="~/Content/Images/Blue_sock.jpg" alt="Blue boy" style="width: 260px; height: 180px;">
-            </a>
-            <div class="caption">
-                <h3>Blue boy</h3>
-                <p>I'm great for a day at the office.</p>
-                <p>
-                    <a href="#" class="btn btn-primary">Join me</a>
-                </p>
-            </div>
-        </div>
-    </div>
-    <div class="col-xs-6 col-md-3">
-        <div class="thumbnail">
-            <a href="#" class="thumbnail">
-                <img src="~/Content/Images/Checkmate.jpg" alt="Checkmate" style="width: 260px; height: 180px;">
-            </a>
-            <div class="caption">
-                <h3>Checkmate</h3>
-                <p>Dancing is my thing.</p>
-                <p>
-                    <a href="#" class="btn btn-primary">Join me</a>
-                </p>
-            </div>
-        </div>
-    </div>
-    <div class="col-xs-6 col-md-3">
 
-        <div class="thumbnail">
-            <a href="#" class="thumbnail">
-                <img src="~/Content/Images/CYAN_SOCK.jpg" alt="Cyan I am" style="width: 260px; height: 180px;">
-            </a>
-            <div class="caption">
-                <h3>Cyan I am</h3>
-                <p>I'll never get lost in the dark.</p>
-                <p>
-                    <a href="#" class="btn btn-primary">Join me</a>
-                </p>
+<div class="row">
+    @foreach (var sock in Model)
+    {
+        <div class="col-xs-6 col-md-3">
+            <div class="thumbnail">
+                <a href="#" class="thumbnail">
+                    <img src="@sock.ImageSrc" alt="@sock.Name" style="width: 260px; height: 180px;">
+                </a>
+                <div class="caption">
+                    <h4>@sock.Name</h4>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="col-xs-6 col-md-3">
-
-        <div class="thumbnail">
-            <a href="#" class="thumbnail">
-                <img src="~/Content/Images/Herring.jpg" alt="Herring" style="width: 260px; height: 180px;">
-            </a>
-            <div class="caption">
-                <h3>Herring</h3>
-                <p>Smoked or not, I'm up for it.</p>
-                <p>
-                    <a href="#" class="btn btn-primary">Join me</a>
-                </p>
-            </div>
-        </div>
-    </div>
+    }
 </div>
+

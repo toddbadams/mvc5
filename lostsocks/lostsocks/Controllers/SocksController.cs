@@ -1,5 +1,4 @@
-﻿using System.Data.Entity.Core.Common.CommandTrees;
-using System.IO;
+﻿using System.IO;
 using System.Web;
 using System.Web.Mvc;
 using lostsocks.Database;
@@ -15,13 +14,13 @@ namespace lostsocks.Controllers
 
         public SocksController()
         {
-            ApplicationDbContext context = new ApplicationDbContext();
+            var context = new ApplicationDbContext();
             _repository = new SockRepository(context);
         }
         // GET: Socks
         public ActionResult Index()
         {
-            SockModel[] vm = _repository.Fetch(User.Identity.GetUserId());
+            var vm = _repository.Fetch(User.Identity.GetUserId());
             return View(vm);
         }
 
@@ -34,31 +33,30 @@ namespace lostsocks.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Add(AddSockModel model, HttpPostedFileBase upload)
         {
-            if (!ModelState.IsValid) //|| upload == null)
+            if (!ModelState.IsValid || upload == null)
             {
                 return View(model);
             }
-
-            // convert the upload to a byte array type
-            byte[] data = null;
-            if (upload != null)
-            {
-                MemoryStream target = new MemoryStream();
-                upload.InputStream.CopyTo(target);
-                data = target.ToArray();
-            }
-
-            // save to repository
-            _repository.Add(User.Identity.GetUserId(), model, data);
-
+            _repository.Add(User.Identity.GetUserId(), model, ToByteArray(upload));
             return RedirectToAction("Index");
+        }
+
+        // convert the upload to a byte array type
+        private static byte[] ToByteArray(HttpPostedFileBase upload)
+        {
+            if (upload == null) return null;
+            using (var target = new MemoryStream())
+            {
+                upload.InputStream.CopyTo(target);
+                var data = target.ToArray();
+                return data;
+            }
         }
 
         public ActionResult Delete(long id)
         {
-            SockModel vm = _repository.Get(User.Identity.GetUserId(), id);
+            var vm = _repository.Get(User.Identity.GetUserId(), id);
             if (vm == null) RedirectToAction("Index");
-
             return View(vm);
         }
 
@@ -66,7 +64,26 @@ namespace lostsocks.Controllers
         public ActionResult DeleteConfirm(long id)
         {
             _repository.Delete(User.Identity.GetUserId(), id);
+            return RedirectToAction("Index");
+        }
 
+
+        public ActionResult Edit(long id)
+        {
+            var vm = _repository.Get(User.Identity.GetUserId(), id);
+            if (vm == null) RedirectToAction("Index");
+            return View(vm);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(EditSockModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return RedirectToAction("Index", new { id = model.Id });
+            }
+            _repository.Update(User.Identity.GetUserId(), model.Id, model.Name, model.Description);
             return RedirectToAction("Index");
         }
     }

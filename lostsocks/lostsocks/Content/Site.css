@@ -13,3 +13,15 @@
 .latestsocks .thumbnail {
     margin-bottom: 0;
 }
+
+.caption h3 {
+    margin: 0;
+}
+
+.thumbnail a {
+    margin: 0;
+}
+
+.thumbnail p {
+    color: #171619;
+}

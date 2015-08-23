@@ -3,14 +3,25 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using lostsocks.Database;
+using lostsocks.Repositories;
 
 namespace lostsocks.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly ISockRepository _repository;
+
+        public HomeController()
+        {
+            var context = new ApplicationDbContext();
+            _repository = new SockRepository(context);            
+        }
+
         public ActionResult Index()
         {
-            return View();
+            var latest = _repository.FetchLatest(4);
+            return View(latest);
         }
 
         public ActionResult About()
