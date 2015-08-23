@@ -1,18 +1,15 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
-using System;
+using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
+
 
 namespace OrderingPizza.Entities
 {
     public class ApplicationUser : IdentityUser
     {
-        public string Name { get; set; }
-       // public DateTime DateOfBirth { get; set; }
-        public string PostCode { get; set; }
-        public string StreetNumber { get; set; }
-        public string AddressLine { get; set; }
+        public virtual ICollection<Pizza> Pizza { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {

@@ -1,20 +1,11 @@
-﻿
+﻿using System.ComponentModel.DataAnnotations;
 namespace OrderingPizza.Entities
 {
     public class PizzaTopping
     {
+        [Key]
         public string Name { get; set; }
         public decimal Cost { get; set; }
 
-        public PizzaTopping(string Name, decimal Cost)
-        {
-            this.Name = Name;
-            this.Cost = Cost;
-        }
-
-        public PizzaTopping()
-        {
-            // TODO: Complete member initialization
-        }
     }
 }

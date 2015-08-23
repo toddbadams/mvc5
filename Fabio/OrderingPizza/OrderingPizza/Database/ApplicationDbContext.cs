@@ -4,7 +4,7 @@ using System.Data.Entity;
 
 namespace OrderingPizza.Models
 {
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IApplicationDbContext
     {
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
@@ -16,5 +16,13 @@ namespace OrderingPizza.Models
         {
             return new ApplicationDbContext();
         }
+    }
+
+    public interface IApplicationDbContext
+    {
+        IDbSet<ApplicationUser> Users { get; }
+
+        int SaveChanges();
+
     }
 }
