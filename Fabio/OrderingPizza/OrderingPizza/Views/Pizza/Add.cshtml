@@ -1,12 +1,9 @@
-﻿@model OrderingPizza.Models.Pizza.AddPizzaModel
+﻿@model OrderingPizza.Models.Pizza.PizzaModel
 
 @{
-    ViewBag.Title = "Pizza New";
+    ViewBag.Title = "Choose your pizza";
 }
 
 <h2>@ViewBag.Title</h2>
 
-@using (Html.BeginForm("Add","Pizza", FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))
-{
-    
-}
+<p>@Model.Name</p>

@@ -8,6 +8,10 @@ namespace OrderingPizza.Models.Pizza
     {
         [Required]
         public string Name { get; set; }
+    }
+
+    public class AddToppings
+    {
         public ICollection<PizzaTopping> Toppings { get; set; }
     }
 }

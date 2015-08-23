@@ -19,7 +19,7 @@ namespace OrderingPizza.Controllers
         // GET: Pizza
         public ActionResult Index()
         {
-            PizzaModel[] pm = _repository.Fetch(User.Identity.GetUserId());
+            //PizzaModel[] pm = _repository.Fetch(User.Identity.GetUserId());
             return View();
         }
 
@@ -42,7 +42,7 @@ namespace OrderingPizza.Controllers
             // save to repository
             _repository.Add(User.Identity.GetUserId(), model);
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Add");
         }
     }
 }

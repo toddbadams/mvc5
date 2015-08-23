@@ -1,17 +1,28 @@
-﻿@{
-    Layout = null;
+﻿@model OrderingPizza.Models.Pizza.PizzaModel
+
+@{
+    ViewBag.Title = "Pizza page";
+
 }
 
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title></title>
-</head>
-<body>
-    <div>
-    
+<div class="row">
+    <h2>@ViewBag.Title</h2>
+    <div class="col-md-6">
+        @*<select class="form-control" name="pizza_selected">
+            <option value="margherita">Margherita</option>
+            <option value="pepperonni">Pepperoni</option>
+            <option value="veggie">Veggie</option>
+            <option value="hawaiian">Hawaiian</option>
+        </select>*@
+        @Html.LabelFor(m => m.Name, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+        </div>
     </div>
-</body>
-</html>
+</div>
+<br />
+<div class="row">
+    <div class="col-md-6">
+        @Html.ActionLink("Add a Pizza", "Add", "Pizza", routeValues: null, htmlAttributes: new { model=Model, id = "addpizza", @class = "btn btn-primary" })
+    </div>
+</div>

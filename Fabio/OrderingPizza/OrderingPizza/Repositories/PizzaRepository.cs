@@ -28,8 +28,8 @@ namespace OrderingPizza.Repositories
             // create a pizza entity
             var e = new Pizza
             {
-                Type = model.Name,
-                Toppings = model.Toppings
+                Type = model.Name
+                //Toppings = model.Toppings
             };
             u.Pizza.Add(e);
             _context.SaveChanges();
