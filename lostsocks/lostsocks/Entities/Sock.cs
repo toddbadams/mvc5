@@ -14,6 +14,10 @@ namespace lostsocks.Entities
 
         public byte[] Image { get; set; }
 
+      //  public long ApplicationUser_Id { get; set; }
+
+        public virtual ApplicationUser ApplicationUser { get; set; }
+
         // http://stackoverflow.com/questions/25400555/save-and-retrieve-image-binary-from-sql-server-using-entity-framework-6
     }
 }

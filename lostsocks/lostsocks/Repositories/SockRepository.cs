@@ -73,7 +73,12 @@ namespace lostsocks.Repositories
 
         public SockModel[] FetchLatest(int quantity)
         {
-            var entities = _socks.Take(quantity).ToList();
+            var entities = _socks
+                .Where(x => x.ApplicationUser != null)
+                .OrderByDescending(x => x.DateOfBirth)
+                .Take(quantity)
+                .ToList();
+
             var socks = new List<SockModel>();
             foreach (var item in entities)
             {
