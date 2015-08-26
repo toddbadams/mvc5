@@ -23,15 +23,21 @@ namespace OrderingPizza.Controllers
             return View();
         }
 
-        public ActionResult Add()
+        public ActionResult Order(long id)
         {
-            return View();
+            var vm = _repository.Get(User.Identity.GetUserId(), id);
+            var order = new PizzaOrderModel
+            {
+                PizzaId = id,
+                Name = vm.Name
+            };
+            return View(order);
         }
 
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Add(AddPizzaModel model)
+        public ActionResult Order(PizzaOrderModel model)
         {
             if (!ModelState.IsValid) //|| upload == null)
             {
@@ -40,9 +46,25 @@ namespace OrderingPizza.Controllers
 
 
             // save to repository
-            _repository.Add(User.Identity.GetUserId(), model);
+            //  var addId = _repository.Add(User.Identity.GetUserId(), model);
 
-            return RedirectToAction("Add");
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Add(AddPizzaModel model)
+        {
+            if (!ModelState.IsValid) //|| upload == null)
+            {
+                return RedirectToAction("Index");
+            }
+
+
+            // save to repository
+            var addId = _repository.Add(User.Identity.GetUserId(), model);
+
+            return RedirectToAction("Order", new { id = addId });
         }
     }
 }

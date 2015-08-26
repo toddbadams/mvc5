@@ -20,7 +20,7 @@ namespace OrderingPizza.Repositories
 
 
 
-        public void Add(string userId, AddPizzaModel model)
+        public long Add(string userId, AddPizzaModel model)
         {
             // get the user
             var u = _users.Single(x => x.Id == userId);
@@ -33,30 +33,41 @@ namespace OrderingPizza.Repositories
             };
             u.Pizza.Add(e);
             _context.SaveChanges();
+            return e.Id;
         }
         public PizzaModel[] Fetch(string userId)
         {
             var u = _users.Single(x => x.Id == userId);
 
-            var pizza = new List<PizzaModel>();
-            foreach (var item in u.Pizza)
-            {
-                pizza.Add(new PizzaModel
-                {
-                    Id = item.Id,
-                    Name = item.Type,
-                    //Toppings = item.Toppings
-                    Toppings = null
-                });
-            }
+            return u.Pizza
+                .Select(PizzaModel)
+                .ToArray();
+        }
 
-            return pizza.ToArray();
+        private static PizzaModel PizzaModel(Pizza item)
+        {
+            return new PizzaModel
+            {
+                Id = item.Id,
+                Name = item.Type,
+                //Toppings = item.Toppings
+                Toppings = null
+            };
+        }
+
+        public PizzaModel Get(string userId, long id)
+        {
+            var u = _users.Single(x => x.Id == userId);
+            if (u.Pizza.All(x => x.Id != id)) return null;
+            var p = u.Pizza.FirstOrDefault(x => x.Id == id);
+            return PizzaModel(p);
         }
     }
 
     public interface IPizzaRepository
     {
-        void Add(string userId, AddPizzaModel model);
+        long Add(string userId, AddPizzaModel model);
         PizzaModel[] Fetch(string userId);
+        PizzaModel Get(string userId, long id);
     }
 }

@@ -184,6 +184,7 @@
     <Compile Include="Models\IndexViewModel.cs" />
     <Compile Include="Models\Pizza\AddPizzaModel.cs" />
     <Compile Include="Models\Pizza\PizzaModel.cs" />
+    <Compile Include="Models\Pizza\PizzaOrderModel.cs" />
     <Compile Include="Models\RegisterViewModel.cs" />
     <Compile Include="Models\ResetPasswordViewModel.cs" />
     <Compile Include="Models\SendCodeViewModel.cs" />
@@ -258,7 +259,7 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Pizza\Add.cshtml" />
+    <Content Include="Views\Pizza\Order.cshtml" />
     <Content Include="Views\Pizza\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
