@@ -1,31 +1,12 @@
 ﻿@model OrderingPizza.Models.Pizza.PizzaModel
 
 @{
-    ViewBag.Title = "Pizza page";
-
+    ViewBag.Title = "Create your Pizza!";
+    var tomatoName = Model.tomato.name;
+    var mozzarellaName = Model.mozzarella.name;
 }
 
-@*<div class="row">
-    <h2>@ViewBag.Title</h2>
-    <div class="col-md-6">
-        @*<select class="form-control" name="pizza_selected">
-            <option value="margherita">Margherita</option>
-            <option value="pepperonni">Pepperoni</option>
-            <option value="veggie">Veggie</option>
-            <option value="hawaiian">Hawaiian</option>
-        </select>
-        @Html.LabelFor(m => m.Name, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
-        </div>
-    </div>
-</div>
-<br />
-<div class="row">
-    <div class="col-md-6">
-        @Html.ActionLink("Add a Pizza", "Add", "Pizza", routeValues: null, htmlAttributes: new {model = Model, id = "addpizza", @class = "btn btn-primary"})
-    </div>
-</div>*@
+<h1>@ViewBag.Title</h1>
 
 @using (Html.BeginForm("Add", "Pizza", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
@@ -42,6 +23,39 @@
 
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
+            <input type="submit" class="btn btn-primary pull-right" value="Add" />
+        </div>
+    </div>
+    
+
+
+}
+
+@using (Html.BeginForm("AddTomato", "Pizza", Model, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(m => m.tomato.name, new { @class = "col-md-2 control-label" })
+        @*<label for="">@tomatoName</label>
+        <label>@Model.tomato.cost</label>*@
+        <div>
+            <input type="submit" class="btn btn-primary pull-right" value=Add />
+        </div>
+        @*@Html.LabelFor(m => m.tomato.cost)*@
+    </div>
+}
+
+@using (Html.BeginForm("AddMozzarella", "Pizza", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(m => m.mozzarella.name, new { @class = "col-md-2 control-label" })
+        @Html.RadioButtonFor(m => m.mozzarella.quantity, new { @class = "col-md-2 control-label" })
+        <div>
             <input type="submit" class="btn btn-primary pull-right" value="Add" />
         </div>
     </div>

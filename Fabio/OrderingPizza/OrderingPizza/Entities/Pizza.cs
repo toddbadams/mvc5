@@ -1,20 +1,28 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using OrderingPizza.Models.Pizza;
 
 namespace OrderingPizza.Entities
 {
     public class Pizza
     {
-        [Key]
         public long Id { get; set; }
-        public string Type { get; set; }
-        //public IEnumerable<string> Type { get; set; }
-        //public List<Toppings> Toppings { get; set; }
-        public virtual ICollection<PizzaTopping> Toppings { get; set; }
+        public Tomato tomato { get; set; }
+        public Mozzarella mozzarella { get; set; }
 
-        public double GetPrice(string type)
+        public Pizza()
         {
-            return 1.0;
+            tomato = new Tomato();
+            mozzarella = new Mozzarella();
+        }
+
+        public Pizza(Tomato tomato, Mozzarella mozzarella)
+        {
+            this.tomato = tomato;
+            this.mozzarella = mozzarella;
+        }
+
+        public void AddUser(long id)
+        {
+            this.Id = id;
         }
     }
 }

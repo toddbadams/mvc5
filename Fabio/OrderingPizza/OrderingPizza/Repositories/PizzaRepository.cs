@@ -1,7 +1,6 @@
 ﻿using OrderingPizza.Entities;
 using OrderingPizza.Models;
 using OrderingPizza.Models.Pizza;
-using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 
@@ -25,33 +24,46 @@ namespace OrderingPizza.Repositories
             // get the user
             var u = _users.Single(x => x.Id == userId);
 
+            Pizza e = new Pizza(model.tomato, model.mozzarella);
+
             // create a pizza entity
-            var e = new Pizza
-            {
-                Type = model.Name
-                //Toppings = model.Toppings
-            };
+            //var e = new Pizza()
+            //{
+            //    tomato = model.tomato,
+            //    mozzarella = model.mozzarella
+            //    //Type = model.Name
+            //    //Toppings = model.Toppings
+            //};
+
             u.Pizza.Add(e);
             _context.SaveChanges();
-            return e.Id;
+            //return e.Id;
+            return 0;
         }
-        public PizzaModel[] Fetch(string userId)
-        {
-            var u = _users.Single(x => x.Id == userId);
 
-            return u.Pizza
-                .Select(PizzaModel)
-                .ToArray();
-        }
+        //public PizzaModel Fetch(string userId)
+        //{
+        //    var u = _users.Single(x => x.Id == userId);
+
+        //    //Convert.ToInt64(u.Id);
+
+        //    Pizza newItem = new Pizza(Convert.ToInt64(u.Id));
+
+        //    return PizzaModel(newItem);
+        //    //return u.Pizza
+        //    //    .Select(PizzaModel)
+        //    //    .ToArray();
+        //}
+
 
         private static PizzaModel PizzaModel(Pizza item)
         {
             return new PizzaModel
             {
-                Id = item.Id,
-                Name = item.Type,
-                //Toppings = item.Toppings
-                Toppings = null
+                //Id = item.Id,
+                //Name = item.Type,
+                mozzarella = new Mozzarella(),
+                tomato = new Tomato()
             };
         }
 
@@ -67,7 +79,8 @@ namespace OrderingPizza.Repositories
     public interface IPizzaRepository
     {
         long Add(string userId, AddPizzaModel model);
-        PizzaModel[] Fetch(string userId);
+        //PizzaModel[] Fetch(string userId);
+        //PizzaModel Fetch(string userId);
         PizzaModel Get(string userId, long id);
     }
 }

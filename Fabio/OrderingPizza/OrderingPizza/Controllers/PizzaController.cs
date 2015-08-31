@@ -19,8 +19,10 @@ namespace OrderingPizza.Controllers
         // GET: Pizza
         public ActionResult Index()
         {
-            //PizzaModel[] pm = _repository.Fetch(User.Identity.GetUserId());
-            return View();
+            //PizzaModel[] pm = _repository.Fetch(User.Identity.GetUserId());            
+            //PizzaModel pm = _repository.Set(User.Identity.GetUserId());
+            PizzaModel pm = new PizzaModel();
+            return View(pm);
         }
 
         public ActionResult Order(long id)
@@ -65,6 +67,35 @@ namespace OrderingPizza.Controllers
             var addId = _repository.Add(User.Identity.GetUserId(), model);
 
             return RedirectToAction("Order", new { id = addId });
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AddTomato(PizzaModel model)
+        {
+            if (!ModelState.IsValid) //|| upload == null)
+            {
+                //return RedirectToAction("Index");
+            }
+
+            model.tomato.quantity = true;
+
+            return RedirectToAction("Index", model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AddMozzarella(PizzaModel model)
+        {
+            if (!ModelState.IsValid) //|| upload == null)
+            {
+                //return RedirectToAction("Index");
+            }
+
+            model.mozzarella.quantity = true;
+
+            return RedirectToAction("Index", model);
+
         }
     }
 }
