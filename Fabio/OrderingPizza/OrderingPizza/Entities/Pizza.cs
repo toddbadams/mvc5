@@ -1,10 +1,13 @@
 ﻿using OrderingPizza.Models.Pizza;
+using System.ComponentModel.DataAnnotations;
 
 namespace OrderingPizza.Entities
 {
     public class Pizza
     {
-        public long Id { get; set; }
+        // ??
+        [Key]
+        public long OrderId { get; set; }
         public Tomato tomato { get; set; }
         public Mozzarella mozzarella { get; set; }
 
@@ -18,11 +21,6 @@ namespace OrderingPizza.Entities
         {
             this.tomato = tomato;
             this.mozzarella = mozzarella;
-        }
-
-        public void AddUser(long id)
-        {
-            this.Id = id;
         }
     }
 }

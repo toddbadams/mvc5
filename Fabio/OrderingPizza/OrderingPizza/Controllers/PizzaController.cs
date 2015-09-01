@@ -21,20 +21,23 @@ namespace OrderingPizza.Controllers
         {
             //PizzaModel[] pm = _repository.Fetch(User.Identity.GetUserId());            
             //PizzaModel pm = _repository.Set(User.Identity.GetUserId());
-            PizzaModel pm = new PizzaModel();
+            // retrieve last valid from database?
+            //PizzaModel pm = new PizzaModel(1);
+            //_pm.Add(pm);
+            PizzaModel pm = _repository.CreatePizzaModel(User.Identity.GetUserId());
             return View(pm);
         }
 
-        public ActionResult Order(long id)
-        {
-            var vm = _repository.Get(User.Identity.GetUserId(), id);
-            var order = new PizzaOrderModel
-            {
-                PizzaId = id,
-                Name = vm.Name
-            };
-            return View(order);
-        }
+        //public ActionResult Order(long id)
+        //{
+        //    var vm = _repository.Get(User.Identity.GetUserId(), id);
+        //    var order = new PizzaOrderModel
+        //    {
+        //        PizzaId = id,
+        //        Name = vm.Name
+        //    };
+        //    return View(order);
+        //}
 
 
         [HttpPost]
@@ -53,48 +56,57 @@ namespace OrderingPizza.Controllers
             return RedirectToAction("Index");
         }
 
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Add(AddPizzaModel model)
+        //{
+        //    if (!ModelState.IsValid) //|| upload == null)
+        //    {
+        //        return RedirectToAction("Index");
+        //    }
+
+
+        //    // save to repository
+        //    var addId = _repository.Add(User.Identity.GetUserId(), model);
+
+        //    return RedirectToAction("Order", new { id = addId });
+        //}
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Add(AddPizzaModel model)
+        public ActionResult Add(long PizzaModelId)
         {
-            if (!ModelState.IsValid) //|| upload == null)
-            {
-                return RedirectToAction("Index");
-            }
-
-
-            // save to repository
-            var addId = _repository.Add(User.Identity.GetUserId(), model);
-
-            return RedirectToAction("Order", new { id = addId });
+            _repository.AddPizza(User.Identity.GetUserId(), PizzaModelId);
+            return RedirectToAction("Index");
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult AddTomato(PizzaModel model)
+        public ActionResult AddTomato(long PizzaModelId)
         {
-            if (!ModelState.IsValid) //|| upload == null)
-            {
-                //return RedirectToAction("Index");
-            }
+            //PizzaModel pm = _repository.GetPizzaModel(User.Identity.GetUserId(), PizzaModelId);
 
-            model.tomato.quantity = true;
+            _repository.AddTomato(PizzaModelId);
 
-            return RedirectToAction("Index", model);
+            //if (!ModelState.IsValid) //|| upload == null)
+            //{
+            //    //return RedirectToAction("Index");
+            //}
+            return RedirectToAction("Index");
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult AddMozzarella(PizzaModel model)
+        public ActionResult AddMozzarella(long PizzaModelId)
         {
-            if (!ModelState.IsValid) //|| upload == null)
-            {
-                //return RedirectToAction("Index");
-            }
+            //if (!ModelState.IsValid) //|| upload == null)
+            //{
+            //    //return RedirectToAction("Index");
+            //}
 
-            model.mozzarella.quantity = true;
+            _repository.AddMozzarella(PizzaModelId);
 
-            return RedirectToAction("Index", model);
+            return RedirectToAction("Index");
 
         }
     }

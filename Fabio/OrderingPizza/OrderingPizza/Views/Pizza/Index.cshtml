@@ -4,57 +4,50 @@
     ViewBag.Title = "Create your Pizza!";
     var tomatoName = Model.tomato.name;
     var mozzarellaName = Model.mozzarella.name;
+    var PizzaModelId = Model.PizzaModelID;
 }
 
 <h1>@ViewBag.Title</h1>
 
-@using (Html.BeginForm("Add", "Pizza", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+@if(Model.tomato.quantity != true)
 {
-    @Html.AntiForgeryToken()
+    using (Html.BeginForm("AddTomato", "Pizza", new { PizzaModelId = Model.PizzaModelID }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+    {
+        @Html.AntiForgeryToken()
 
-    @Html.ValidationSummary("", new { @class = "text-danger" })
-
-    <div class="form-group">
-         @Html.LabelFor(m => m.Name, new {@class = "col-md-2 control-label"})
-        <div class="col-md-10">
-             @Html.TextBoxFor(m => m.Name, new {@class = "form-control"})
+        @Html.ValidationSummary("", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(m => m.tomato.name, new { @class = "col-md-2 control-label" })
+            <div>
+                <input type="submit" class="btn btn-primary pull-right" value=Add />
+            </div>
         </div>
-    </div>
-
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" class="btn btn-primary pull-right" value="Add" />
-        </div>
-    </div>
-    
-
-
+    }
 }
 
-@using (Html.BeginForm("AddTomato", "Pizza", Model, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+@if (Model.mozzarella.quantity != true)
 {
-    @Html.AntiForgeryToken()
+    using (Html.BeginForm("AddMozzarella", "Pizza", new { PizzaModelId = Model.PizzaModelID }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+    {
+        @Html.AntiForgeryToken()
 
-    @Html.ValidationSummary("", new { @class = "text-danger" })
-    <div class="form-group">
-        @Html.LabelFor(m => m.tomato.name, new { @class = "col-md-2 control-label" })
-        @*<label for="">@tomatoName</label>
-        <label>@Model.tomato.cost</label>*@
-        <div>
-            <input type="submit" class="btn btn-primary pull-right" value=Add />
+        @Html.ValidationSummary("", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(m => m.mozzarella.name, new { @class = "col-md-2 control-label" })
+            <div>
+                <input type="submit" class="btn btn-primary pull-right" value="Add" />
+            </div>
         </div>
-        @*@Html.LabelFor(m => m.tomato.cost)*@
-    </div>
+    }
 }
 
-@using (Html.BeginForm("AddMozzarella", "Pizza", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+@using (Html.BeginForm("Add", "Pizza", new { PizzaModelId = Model.PizzaModelID }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
     @Html.AntiForgeryToken()
 
     @Html.ValidationSummary("", new { @class = "text-danger" })
     <div class="form-group">
-        @Html.LabelFor(m => m.mozzarella.name, new { @class = "col-md-2 control-label" })
-        @Html.RadioButtonFor(m => m.mozzarella.quantity, new { @class = "col-md-2 control-label" })
+        <p>Order your pizza</p>
         <div>
             <input type="submit" class="btn btn-primary pull-right" value="Add" />
         </div>

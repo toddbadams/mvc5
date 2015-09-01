@@ -4,15 +4,19 @@ namespace OrderingPizza.Models.Pizza
 {
     public class PizzaModel
     {
-        public long Id { get; set; }
+        public string Id { get; set; }
+        public long PizzaModelID { get; set; }
         public Tomato tomato { get; set; }
         public Mozzarella mozzarella { get; set; }
 
-        public PizzaModel()
+        public PizzaModel(long pmId, string userId)
         {
+            this.PizzaModelID = pmId;
             tomato = new Tomato();
             mozzarella = new Mozzarella();
+            this.Id = userId;
         }
+
     }
 
     public class Tomato
